@@ -158,7 +158,6 @@ App.onLaunch = function (options) {
           } else {
             tvOS.showLoadingIndicator("Reloading");
             setTimeout(() => {
-              //   tvOS.location("https://wdg.github.io/tvOS.js/index.js");
               tvOS.listView("TV Demo", myList);
             }, 3000);
           }
