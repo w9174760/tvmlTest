@@ -1465,39 +1465,33 @@ var tvOS = {
    * @example   console.log(data)
    * @example })
    */
-  ajax: function (url, method, callback) {
+  ajax: function (url, method, data, callback) {
     // if no method, then just GET
     if (typeof method === "undefined") {
       method = "GET";
     }
 
-    // init XMLHTTPRequest
-    var xmlhttp = new XMLHttpRequest();
+    if (typeof data === "object") {
+      data = JSON.stringify(data);
+    }
 
-    // Open with method, url
-    xmlhttp.open(method, url, true);
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
 
-    // If state is changed then
-    xmlhttp.onreadystatechange = function () {
-      // If readyState = 4 (done) then.
-      if (xmlhttp.readyState === 4) {
-        // If status is 200 (Found)
-        if (xmlhttp.status === 200) {
-          // If type of callback is none
-          if (typeof callback === "undefined") {
-            return xmlhttp.responseText;
-          } else {
-            // Or function
-            callback(xmlhttp.responseText);
-          }
+    xhr.addEventListener("readystatechange", function () {
+      if (xhr.readyState === 4) {
+        if (typeof callback === "undefined") {
+          return xhr.responseText;
         } else {
-          return false;
+          callback(xhr.responseText);
         }
       }
-    };
+    });
 
-    // Send the actual request.
-    xmlhttp.send();
+    xhr.open(method, url);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(data);
   },
 
   /**
