@@ -1,125 +1,14 @@
-var resourceLoader;
 
 App.onLaunch = function (options) {
   // options : launchOptions from swift
-  console.log(options);
   var errorDoc;
   var baseUrl = options.BASEURL;
   var javascriptFiles = [
-    `${baseUrl}js/ResourceLoader.js`,
-    `${baseUrl}js/Presenter.js`,
+    // `${baseUrl}js/ResourceLoader.js`,
+    // `${baseUrl}js/Presenter.js`,
     `${baseUrl}js/tvOS.js`,
-    // `${baseUrl}js/network/Utils.js`,
+    `${baseUrl}js/listviewData.js`
   ];
-
-  var myList = [];
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/alertView.jpg",
-    title: "AlertView",
-    subtitle: "a example of AlertView",
-    action: "openAlertView",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/compilationView.jpg",
-    title: "compilationView",
-    subtitle: "a example of compilationView",
-    action: "opencompilationView",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/listView.jpg",
-    title: "listView",
-    subtitle: "a example of listView",
-    action: "openlistView",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/loadingView.jpg",
-    title: "loadingView",
-    subtitle: "a example of loadingView",
-    action: "openloadingView",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/ratingView.jpg",
-    title: "ratingView",
-    subtitle: "a example of ratingView",
-    action: "openratingView",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/searchView.jpg",
-    title: "searchView",
-    subtitle: "a example of searchView",
-    action: "opensearchView",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/exampleApp.jpg",
-    title: "Example App",
-    subtitle: "The App Team!",
-    description:
-      "if you've got a problem and no-one else can help, then you should call The App Team!",
-    action: "openExampleApp",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/exampleApp2.png",
-    title: "Example App",
-    subtitle: "NU.nl News",
-    description: "NU.nl © 2015 Sanoma Digital The Netherlands B.V.",
-    action: "openExampleApp2",
-  });
-
-  myList.push({
-    image:
-      "http://www.hipmarketing.nl/wp-content/uploads/2015/08/instagram-logo-transparent.png",
-    title: "Instagram",
-    subtitle: "my Instagram feed @wesdegroot",
-    description: "Super cool!",
-    action: "openInstagram",
-  });
-
-  myList.push({
-    image:
-      "http://www.environmentamerica.org/sites/environment/files/new-twitter-bird-square.png",
-    title: "Twitter",
-    subtitle: "my Twitter feed @wesdegroot",
-    description: "Super cool!",
-    action: "openTwitter",
-  });
-
-  myList.push({
-    image: "https://antjtw.files.wordpress.com/2013/09/imdb.png",
-    title: "IMDB",
-    subtitle: "IMDB Top movies",
-    description: "So cool!",
-    action: "openIMDB",
-  });
-
-  myList.push({
-    image: "https://wdg.github.io/tvOS.js/images/exampleApp.jpg",
-    title: "YouTube Video!",
-    subtitle: "YouTube Video!",
-    description: "a Quick parser",
-    action: "openYoutubeVideo",
-  });
-
-  myList.push({
-    image: "https://www.wdgwv.com/logo.png",
-    title: "Reload",
-    subtitle: "Reload this app",
-    action: "list_reload",
-  });
-
-  myList.push({
-    image: "https://www.wdgwv.com/logo.png",
-    title: "Resize Live Screen",
-    subtitle: "Resize Live Screen",
-    action: "list_modifyScreenSize",
-  });
 
   // javascript 파일 로드
   evaluateScripts(javascriptFiles, function (success) {
@@ -162,42 +51,17 @@ App.onLaunch = function (options) {
               );
             } else if (c === "Get Pairing List") {
               tvOS.showLoadingIndicator("Reloading");
-              getSampleData();
-              // getNPSPairingList();
+              // getSampleData(); // listView 샘플 코드
+              getNPSPairingList(); // SKB NPS 페어링 리스트 API
             } else {
               tvOS.showLoadingIndicator("Reloading");
               setTimeout(() => {
-                tvOS.listView("TV Demo", myList);
+                tvOS.listView("TV Demo", ListViewData); //from listviewData.js
               }, 3000);
             }
           }
         );
       }, 5000);
-
-      //   resourceLoader = new ResourceLoader(options.BASEURL);
-      //   resourceLoader.loadResource(
-      //     `${options.BASEURL}templates/StoaTemplate.xml.js`,
-      //     function (resource) {
-      //       var doc = Presenter.makeDocument(resource);
-      //       // doc.addEventListener("select", Presenter.load.bind(Presenter));
-      //       Presenter.pushDocument(doc);
-      //     }
-      //   );
-
-      //   let xhr = new XMLHttpRequest();
-      //   xhr.open("GET", `${options.BASEURL}templates/StoaTemplate.xml`);
-      //   xhr.onload = () => {
-      //     let text = xhr.responseText;
-      //     var doc = Presenter.makeDocument(text);
-      //     // doc.addEventListener("select", Presenter.load.bind(Presenter));
-      //     Presenter.pushDocument(doc);
-      //   };
-      //   xhr.onerror = () => {
-      //     errorDoc = createAlert("XML load Error", "");
-      //     // The navigationDocument is analogous to a UINavigationController in iOS; It serves as the stack that can push, pop, and present TVML documents.
-      //     navigationDocument.presentModal(errorDoc);
-      //   };
-      //   xhr.send();
     } else {
       errorDoc = createAlert(
         "Evaluate Scripts Error",
