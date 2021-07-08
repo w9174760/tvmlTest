@@ -1,30 +1,21 @@
-
 App.onLaunch = function (options) {
   // options : launchOptions from swift
+  // local server : ruby -run -ehttpd . -p9001
   var errorDoc;
   var baseUrl = options.BASEURL;
   var javascriptFiles = [
-    // `${baseUrl}js/ResourceLoader.js`,
-    // `${baseUrl}js/Presenter.js`,
     `${baseUrl}js/tvOS.js`,
-    `${baseUrl}js/listviewData.js`
+    `${baseUrl}js/listviewData.js`,
   ];
 
   // javascript 파일 로드
   evaluateScripts(javascriptFiles, function (success) {
     if (success) {
-      tvOS.screenSize("20-20-400-400");
+      tvOS.screenSize("0-0-1920-1080");
       tvOS.customView(
-        "STOA TVML",
-        "Subtitles for the deaf and Hard of Hearing (SDH) refer to subtitles in the original lanuage with the addition of relevant non-dialog information.",
-        `${baseUrl}images/frame.png`,
-        `${baseUrl}images/gradient.jpg`,
-        `<text><badge src="resource://tomato-fresh"/> 99% </text>
-        <text>1hr 54min </text>
-        <text>Comedy </text>
-        <text>2015 </text>
-        <badge src="resource://mpaa-pg" class="badge" />
-        <badge src="resource://cc" class="badge" />`,
+        `${baseUrl}images/gradient_background.jpeg`,
+        `${baseUrl}images/sample-right.png`,
+        [`자동주문 080.816.1212`, `상담전화 080.837.1212`],
         () => {}
       );
 
@@ -35,18 +26,11 @@ App.onLaunch = function (options) {
           ["Yes", "No", "Get Pairing List"],
           function (c) {
             if (c === "Yes") {
-              tvOS.screenSize("30-30-500-500");
+              tvOS.screenSize("20-20-1400-950");
               tvOS.customView(
-                "STOA TVML 2",
-                "test",
-                `${baseUrl}images/frame.png`,
-                `${baseUrl}images/gradient2.jpg`,
-                `<text><badge src="resource://tomato-fresh"/> 99% </text>
-              <text>1hr 54min </text>
-              <text>Comedy </text>
-              <text>2015 </text>
-              <badge src="resource://mpaa-pg" class="badge" />
-              <badge src="resource://cc" class="badge" />`,
+                `${baseUrl}images/grey_background.jpeg`,
+                `${baseUrl}images/sample-right.png`,
+                [`자동주문 080.816.1212`, `상담전화 080.837.1212`],
                 () => {}
               );
             } else if (c === "Get Pairing List") {

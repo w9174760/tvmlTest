@@ -283,7 +283,7 @@ if (typeof console === "undefined" || typeof window === "undefined") {
 // *
 // * Making your work more easy!
 // *
-// * @var object tvOS
+/** @type {*} */
 var tvOS = {
   // * tvOS.windows
   // *
@@ -1796,30 +1796,23 @@ var tvOS = {
 
   /**
    * make custom view layout
-   * @param {*} title            - title
-   * @param {*} description      - footer description
-   * @param {*} imageURL         - image src url
    * @param {*} backgroundImgURL - background image src url
+   * @param {*} imageURL         - image src url
    * @param {*} footerContents   - footer contents
    * @param {*} callback         - callback
    */
-  customView: function (
-    title,
-    description,
-    imageURL,
-    backgroundImgURL,
-    footerContents,
-    callback
-  ) {
+  customView: function (backgroundImgURL, imageURL, footerContents, callback) {
     // Create a temporary empty string.
     var temp = "";
 
     // Parse the template customView
-    temp += tvOS.CustomView.replace("tvOS_title", this.safeString(title))
-      .replace("tvOS_description", this.safeString(description))
+    temp += tvOS.CustomView.replaceAll(
+      "tvOS_background_image",
+      backgroundImgURL
+    )
       .replaceAll("tvOS_image", imageURL)
-      .replace("tvOS_background_image", backgroundImgURL)
-      .replace("tvOS_footer_contents", footerContents);
+      .replaceAll("tvOS_footer_text_1", footerContents[0])
+      .replaceAll("tvOS_footer_text_2", footerContents[1]);
 
     // Create the document..
     temp = tvOS.makeDocument(temp);
@@ -2041,36 +2034,28 @@ var tvOS = {
     </searchTemplate>
     </document>`,
 
+  // * 레이아웃 설정할 수 있는 TVML 샘플
   CustomView: `<?xml version="1.0" encoding="UTF-8" ?>
     <document>
       <head>
           <style>
               .headerWrapper {
+                  tv-align: right;
                   tv-position: top-right;
-                  tv-align: right;
-                  font-size: 50px;
-                  margin: 30px;
-                  margin-top: 100px;
-                  color: rgb(255, 255, 255)
-              }
-              .imgQR {
-                  tv-position: right;
-                  tv-align: right;
-                  margin: 100px 70px;
-              }
-              .img2 {
-                  tv-position: bottom-right;
+                  color: rgb(255, 255, 255);
+                  margin: 20px;
+                  font-size: 40px;
+                  font-weight: bold;
               }
               .footerWrapper {
                   tv-position: footer;
                   tv-align: center;
-                  font-size: 20px;
+                  color: rgb(255, 255, 255);
+                  tv-interitem-spacing: 50;
                   margin: 30px;
-  
-              }
-              .footerWrapper text {
-                  tv-text-style: caption2;
-                  tv-interitem-spacing: 40;
+                  margin-bottom: 30px;
+                  font-size: 40px;
+                  font-weight: bold;
               }
           
           </style>
@@ -2079,19 +2064,14 @@ var tvOS = {
           <background>
               <img src="tvOS_background_image"/>
           </background>
-  
+
           <row class="headerWrapper">
-              <title>tvOS_title</title>
+            <img src="tvOS_image" width="500" height="950"/>
           </row>
-  
-          <img src="tvOS_image" width="160" height="160" class="imgQR"/>
-          <img src="tvOS_image" width="160" height="160" class="imgQR img2"/>
-  
+
           <row class="footerWrapper">
-              tvOS_footer_contents
-          </row>
-          <row class="footerWrapper">
-              <description>tvOS_description</description>
+              <title>tvOS_footer_text_1</title>
+              <title>tvOS_footer_text_2</title>
           </row>
       </divTemplate>
     </document>`,
