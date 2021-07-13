@@ -52,7 +52,7 @@ App.onLaunch = function (options) {
         //     }
         //   }
         // );
-      }, 5000);
+      }, 2000);
     } else {
       errorDoc = createAlert(
         "Evaluate Scripts Error",
