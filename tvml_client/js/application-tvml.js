@@ -12,10 +12,46 @@ App.onLaunch = function (options) {
   evaluateScripts(javascriptFiles, function (success) {
     if (success) {
       tvOS.screenSize("0-0-1920-1080");
-      tvOS.customView(`${baseUrl}images/background.png`, null, null, () => {});
+      tvOS.customView(
+        `${baseUrl}images/gradient_background.jpeg`,
+        `${baseUrl}images/sample-right.png`,
+        [`자동주문 080.816.1212`, `상담전화 080.837.1212`],
+        () => {}
+      );
 
       setTimeout(() => {
-        tvOS.screenSize("0-0-1357-764");
+        tvOS.screenSize("20-20-1400-950");
+        tvOS.customView(
+          `${baseUrl}images/grey_background.jpeg`,
+          `${baseUrl}images/sample-right.png`,
+          [`자동주문 080.816.1212`, `상담전화 080.837.1212`],
+          () => {}
+        );
+        // tvOS.alert(
+        //   "Modify Size?",
+        //   "",
+        //   ["Yes", "No", "Get Pairing List"],
+        //   function (c) {
+        //     if (c === "Yes") {
+        //       tvOS.screenSize("20-20-1400-950");
+        //       tvOS.customView(
+        //         `${baseUrl}images/grey_background.jpeg`,
+        //         `${baseUrl}images/sample-right.png`,
+        //         [`자동주문 080.816.1212`, `상담전화 080.837.1212`],
+        //         () => {}
+        //       );
+        //     } else if (c === "Get Pairing List") {
+        //       tvOS.showLoadingIndicator("Reloading");
+        //       // getSampleData(); // listView 샘플 코드
+        //       getNPSPairingList(); // SKB NPS 페어링 리스트 API
+        //     } else {
+        //       tvOS.showLoadingIndicator("Reloading");
+        //       setTimeout(() => {
+        //         tvOS.listView("TV Demo", ListViewData); //from listviewData.js
+        //       }, 3000);
+        //     }
+        //   }
+        // );
       }, 2000);
     } else {
       errorDoc = createAlert(

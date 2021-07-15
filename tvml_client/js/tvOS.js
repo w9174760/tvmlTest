@@ -1803,16 +1803,20 @@ var tvOS = {
    */
   customView: function (backgroundImgURL, imageURL, footerContents, callback) {
     // Create a temporary empty string.
-    var temp = "";
+    var temp = imageURL ? tvOS.CustomView : tvOS.BackgroundView;
 
     // Parse the template customView
-    temp += tvOS.CustomView.replaceAll(
-      "tvOS_background_image",
-      backgroundImgURL
-    )
-      .replaceAll("tvOS_image", imageURL)
-      .replaceAll("tvOS_footer_text_1", footerContents[0])
-      .replaceAll("tvOS_footer_text_2", footerContents[1]);
+    temp = temp.replaceAll("tvOS_background_image", backgroundImgURL);
+
+    if (imageURL) {
+      temp = temp.replaceAll("tvOS_image", imageURL);
+    }
+
+    if (footerContents) {
+      temp = temp
+        .replaceAll("tvOS_footer_text_1", footerContents[0])
+        .replaceAll("tvOS_footer_text_2", footerContents[1]);
+    }
 
     // Create the document..
     temp = tvOS.makeDocument(temp);
@@ -2073,6 +2077,20 @@ var tvOS = {
               <title>tvOS_footer_text_1</title>
               <title>tvOS_footer_text_2</title>
           </row>
+      </divTemplate>
+    </document>`,
+
+  // * 배경화면 설정할 수 있는 TVML 샘플
+  BackgroundView: `<?xml version="1.0" encoding="UTF-8" ?>
+    <document>
+      <head>
+          <style>
+          </style>
+      </head>
+    <divTemplate>
+          <background>
+              <img src="tvOS_background_image"/>
+          </background>
       </divTemplate>
     </document>`,
 };
