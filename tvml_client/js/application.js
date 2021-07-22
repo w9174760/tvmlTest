@@ -3,6 +3,7 @@ App.onLaunch = function (options) {
   // local server : ruby -run -ehttpd . -p9001
   var errorDoc;
   var baseUrl = options.BASEURL;
+  var backImageUrl = options.BACKGROUNDIMAGEURL
   var javascriptFiles = [
     `${baseUrl}js/tvOS.js`,
     `${baseUrl}js/listviewData.js`,
@@ -12,7 +13,7 @@ App.onLaunch = function (options) {
   evaluateScripts(javascriptFiles, function (success) {
     if (success) {
       tvOS.screenSize("0-0-1920-1080");
-      tvOS.customView(`${baseUrl}images/background.png`, null, null, () => {});
+      tvOS.customView(`${backImageUrl}`, null, null, () => {});
 
       setTimeout(() => {
         tvOS.screenSize("0-0-1357-764");
