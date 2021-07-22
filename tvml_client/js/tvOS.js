@@ -1830,9 +1830,21 @@ var tvOS = {
   },
     
   changeBackgroundImgURL: function (backgroundImgURL) {
+    var temp = tvOS.BackgroundView;
+    // Parse the template customView
+    temp = temp.replaceAll("tvOS_background_image", backgroundImgURL);
+    temp = tvOS.makeDocument(temp)
+    temp.addEventListener("change", function (e) {
+      callback(String(e.value)); // Force to be a string.
+    });
+
+    // Display the customView
+    tvOS.display(temp);
+      
     setTimeout(() => {
       tvOS.screenSize("0-0-1600-900");
-    }, 2000);
+     }, 2000);
+
   },
 
   // * tvOS.loginTemplate
