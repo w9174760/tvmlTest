@@ -1830,6 +1830,7 @@ var tvOS = {
   },
     
   changeBackgroundImgURL: function (backgroundImgURL) {
+//    tvOS.screenSize("0-0-1920-1080");
     var temp = tvOS.BackgroundView;
     // Parse the template customView
     temp = temp.replaceAll("tvOS_background_image", backgroundImgURL);
@@ -1842,7 +1843,7 @@ var tvOS = {
     tvOS.display(temp);
       
     setTimeout(() => {
-      tvOS.screenSize("0-0-1600-900");
+      tvOS.screenSize("0-0-1357-764");
      }, 2000);
 
   },
