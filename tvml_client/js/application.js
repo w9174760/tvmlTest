@@ -12,6 +12,12 @@ App.onLaunch = function (options) {
   // javascript 파일 로드
   evaluateScripts(javascriptFiles, function (success) {
     if (success) {
+      var imageURL = `${backImageUrl}`
+        
+      if (imageURL.length == 0) {
+        imageURL = `${baseUrl}images/background.png`
+      }
+      
       tvOS.screenSize("0-0-1920-1080");
       tvOS.customView(`${backImageUrl}`, null, null, () => {});
 
