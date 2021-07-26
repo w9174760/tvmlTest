@@ -14,7 +14,7 @@ App.onLaunch = function (options) {
     if (success) {
       var imageURL = `${backImageUrl}`
         
-      if (imageURL.length == 0) {
+      if (!imageURL || imageURL.length === 0) {
         imageURL = `${baseUrl}images/background.png`
       }
       
