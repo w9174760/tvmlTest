@@ -19,7 +19,7 @@ App.onLaunch = function (options) {
       }
       
       tvOS.screenSize("0-0-1920-1080");
-      tvOS.customView(`${backImageUrl}`, null, null, () => {});
+      tvOS.customView(imageURL, null, null, () => {});
 
       setTimeout(() => {
         tvOS.screenSize("0-0-1357-764");
