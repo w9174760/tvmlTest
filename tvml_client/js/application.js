@@ -3,7 +3,7 @@ App.onLaunch = function (options) {
   // local server : ruby -run -ehttpd . -p9001
   var errorDoc;
   var baseUrl = options.BASEURL;
-  var backImageUrl = options.BACKGROUNDIMAGEURL
+  var backImageUrl = options.BACKGROUNDIMAGEURL;
   var javascriptFiles = [
     `${baseUrl}js/tvOS.js`,
     `${baseUrl}js/listviewData.js`,
@@ -11,19 +11,15 @@ App.onLaunch = function (options) {
 
   // javascript 파일 로드
   evaluateScripts(javascriptFiles, function (success) {
-    if (success) {
-        
-    
-      if (!backImageUrl || backImageUrl.trim().length === 0)
-        backImageUrl = `${baseUrl}images/background.png`
-      }
-      
+    if (baseUrl && success) {
       tvOS.screenSize("0-0-1920-1080");
-      tvOS.customView(`${backImageUrl}`, null, null, () => {});
 
-      setTimeout(() => {
-        tvOS.screenSize("0-0-1357-764");
-      }, 2000);
+      if (backImageUrl) {
+        tvOS.customView(`${backImageUrl}`, null, null, () => {});
+        setTimeout(() => {
+          tvOS.screenSize("0-0-1357-764");
+        }, 2000);
+      }
     } else {
       errorDoc = createAlert(
         "Evaluate Scripts Error",
